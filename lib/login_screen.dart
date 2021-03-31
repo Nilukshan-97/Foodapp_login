@@ -1,9 +1,17 @@
 import 'package:auth_tamil/constants.dart';
+import 'package:auth_tamil/home_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'colors.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  String _email, _password;
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -11,142 +19,193 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomPadding: true,
       backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Stack(
+      body: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: SingleChildScrollView(
+          child: Form(
+            key: formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                Image.asset(
-                  bgImage,
-                  height: height * 0.30,
-                  width: width,
-                  fit: BoxFit.cover,
-                ),
-                Container(
-                  height: height * 0.30,
-                  width: width,
-                  decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                          stops: [0.3, 0.9],
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Colors.transparent,
-                            Colors.white,
-                          ])),
-                  //color: Colors.red.withOpacity(0.3),
-                ),
-              ],
-            ),
-            Center(
-              child: Text(appName,
-                  style: TextStyle(
-                    fontSize: 30.0,
-                    fontWeight: FontWeight.w600,
-                  )),
-            ),
-            Center(
-                child: Text(slogan,
-                    style: TextStyle(fontSize: 18.0, color: Colors.grey))),
-            Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Container(
-                child: Text(
-                  "   $loginStr  ",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22.0),
-                ),
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(colors: [
-                      primaryColor.withOpacity(0.4),
-                      primaryColor.withOpacity(0.1),
-                    ]),
-                    border: Border(
-                        left: BorderSide(color: primaryColor, width: 5.0))),
-              ),
-            ),
-            SizedBox(
-              height: 5.0,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0),
-              child: TextField(
-                decoration: InputDecoration(
-                    focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: primaryColor)),
-                    prefixIcon: Icon(
-                      Icons.email,
-                      color: primaryColor,
+                Stack(
+                  children: <Widget>[
+                    Image.asset(
+                      bgImage,
+                      height: height * 0.30,
+                      width: width,
+                      fit: BoxFit.cover,
                     ),
-                    labelText: "Enter Email Address",
-                    labelStyle: TextStyle(color: primaryColor, fontSize: 16.0)),
-              ),
-            ),
-            SizedBox(
-              height: 10.0,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0),
-              child: TextField(
-                obscureText: true,
-                decoration: InputDecoration(
-                    focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: primaryColor)),
-                    prefixIcon: Icon(
-                      Icons.lock_open,
-                      color: primaryColor,
+                    Container(
+                      height: height * 0.30,
+                      width: width,
+                      decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                              stops: [0.3, 0.9],
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                Colors.transparent,
+                                Colors.white,
+                              ])),
+                      //color: Colors.red.withOpacity(0.3),
                     ),
-                    labelText: "Enter Password",
-                    labelStyle: TextStyle(color: primaryColor, fontSize: 16.0)),
-              ),
-            ),
-            Align(
-              alignment: Alignment.centerRight,
-              child: FlatButton(
-                onPressed: () {},
-                child: Text(forget),
-              ),
-            ),
-            Center(
-                child: SizedBox(
-                    height: height * 0.08,
-                    width: width - 30,
-                    child: FlatButton(
-                      color: primaryColor,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
-                      onPressed: () {},
-                      child: Text(
-                        "Login to Account",
-                        style: TextStyle(
-                            letterSpacing: 0.5,
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white),
-                      ),
-                    ))),
-            SizedBox(
-              height: 10.0,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  "Don't have an account?",
-                  style: TextStyle(fontSize: 15.0),
+                  ],
                 ),
-                FlatButton(
-                  onPressed: () {},
-                  child: Text("Create Account",
+                Center(
+                  child: Text(appName,
                       style: TextStyle(
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.bold,
+                        fontSize: 30.0,
+                        fontWeight: FontWeight.w600,
                       )),
-                )
+                ),
+                Center(
+                    child: Text(slogan,
+                        style: TextStyle(fontSize: 18.0, color: Colors.grey))),
+                Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Container(
+                    child: Text(
+                      "   $loginStr  ",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 22.0),
+                    ),
+                    decoration: BoxDecoration(
+                        gradient: LinearGradient(colors: [
+                          primaryColor.withOpacity(0.4),
+                          primaryColor.withOpacity(0.1),
+                        ]),
+                        border: Border(
+                            left: BorderSide(color: primaryColor, width: 5.0))),
+                  ),
+                ),
+                SizedBox(
+                  height: 5.0,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                  child: TextFormField(
+                    onSaved: (value) {
+                      _email = value;
+                    },
+                    validator: (email) {
+                      if (email.isEmpty)
+                        return "Please Enter Email";
+                      else if (!RegExp(
+                              r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+                          .hasMatch(email)) return "It's Not a valid Email";
+
+                      return null;
+                    },
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: InputDecoration(
+                        focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: primaryColor)),
+                        prefixIcon: Icon(
+                          Icons.email,
+                          color: primaryColor,
+                        ),
+                        labelText: "Enter Email Address",
+                        labelStyle:
+                            TextStyle(color: primaryColor, fontSize: 16.0)),
+                  ),
+                ),
+                SizedBox(
+                  height: 10.0,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                  child: TextFormField(
+                    onSaved: (value) {
+                      _password = value;
+                    },
+                    validator: (password) {
+                      if (password.isEmpty)
+                        return "Please Enter Password";
+                      else if (password.length < 8 || password.length > 15)
+                        return "Password Length is 8-15 character";
+                      return null;
+                    },
+                    obscureText: true,
+                    decoration: InputDecoration(
+                        focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: primaryColor)),
+                        prefixIcon: Icon(
+                          Icons.lock_open,
+                          color: primaryColor,
+                        ),
+                        labelText: "Enter Password",
+                        labelStyle:
+                            TextStyle(color: primaryColor, fontSize: 16.0)),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: FlatButton(
+                    onPressed: () {},
+                    child: Text(forget),
+                  ),
+                ),
+                Center(
+                    child: SizedBox(
+                        height: height * 0.08,
+                        width: width - 30,
+                        child: FlatButton(
+                          color: primaryColor,
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                          onPressed: () {
+                            if (formKey.currentState.validate()) {
+                              if (formKey.currentState.validate()) {
+                                formKey.currentState.save();
+                                if (_email == "test@gmail.com" &&
+                                    _password == "root@123") {
+                                  FocusScope.of(context).unfocus();
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => HomeScreen(),
+                                    ),
+                                  );
+                                } else {
+                                  print("Invalid Login details");
+                                }
+                              }
+                            }
+                          },
+                          child: Text(
+                            "Login to Account",
+                            style: TextStyle(
+                                letterSpacing: 0.5,
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white),
+                          ),
+                        ))),
+                SizedBox(
+                  height: 10.0,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      "Don't have an account?",
+                      style: TextStyle(fontSize: 15.0),
+                    ),
+                    FlatButton(
+                      onPressed: () {},
+                      child: Text("Create Account",
+                          style: TextStyle(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.bold,
+                          )),
+                    )
+                  ],
+                ),
               ],
             ),
-          ],
+          ),
         ),
       ),
     );
