@@ -1,17 +1,17 @@
 import 'package:auth_tamil/constants.dart';
 import 'package:auth_tamil/home_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:auth_tamil/register_screen.dart';
+import 'package:auth_tamil/login_screen.dart';
 import 'colors.dart';
 
-class LoginScreen extends StatefulWidget {
+class RegisterScreen extends StatefulWidget {
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _RegisterScreenState createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  String _email, _password;
+  String _email, _password, _name;
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -66,7 +66,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   padding: const EdgeInsets.all(15.0),
                   child: Container(
                     child: Text(
-                      "   $loginStr  ",
+                      "   Register  ",
                       style: TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 22.0),
                     ),
@@ -77,6 +77,32 @@ class _LoginScreenState extends State<LoginScreen> {
                         ]),
                         border: Border(
                             left: BorderSide(color: primaryColor, width: 5.0))),
+                  ),
+                ),
+                SizedBox(
+                  height: 5.0,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                  child: TextFormField(
+                    onSaved: (value) {
+                      _name = value;
+                    },
+                    validator: (name) {
+                      if (name.isEmpty) return "Please Enter Name";
+                      return null;
+                    },
+                    obscureText: true,
+                    decoration: InputDecoration(
+                        focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: primaryColor)),
+                        prefixIcon: Icon(
+                          Icons.account_box,
+                          color: primaryColor,
+                        ),
+                        labelText: "Enter Name",
+                        labelStyle:
+                            TextStyle(color: primaryColor, fontSize: 16.0)),
                   ),
                 ),
                 SizedBox(
@@ -139,12 +165,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             TextStyle(color: primaryColor, fontSize: 16.0)),
                   ),
                 ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: FlatButton(
-                    onPressed: () {},
-                    child: Text(forget),
-                  ),
+                SizedBox(
+                  height: height * 0.08,
                 ),
                 Center(
                     child: SizedBox(
@@ -160,7 +182,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               if (formKey.currentState.validate()) {
                                 formKey.currentState.save();
                                 if (_email == "test@gmail.com" &&
-                                    _password == "root@123") {
+                                    _password == "root@123" &&
+                                    _name == "Nilukshan") {
                                   FocusScope.of(context).unfocus();
                                   Navigator.push(
                                     context,
@@ -175,7 +198,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             }
                           },
                           child: Text(
-                            "Login to Account",
+                            "Register",
                             style: TextStyle(
                                 letterSpacing: 0.5,
                                 fontSize: 20.0,
@@ -190,17 +213,19 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text(
-                      "Don't have an account?",
+                      "Have you a account?",
                       style: TextStyle(fontSize: 15.0),
                     ),
                     FlatButton(
-                      onPressed: () {Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => RegisterScreen(),
-                                    ),
-                                  );},
-                      child: Text("Create Account",
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => LoginScreen(),
+                          ),
+                        );
+                      },
+                      child: Text("Sign in",
                           style: TextStyle(
                             fontSize: 16.0,
                             fontWeight: FontWeight.bold,
